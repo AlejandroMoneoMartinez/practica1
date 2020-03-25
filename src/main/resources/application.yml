@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: practica1
+  datasource: #Configuracion de la conexión con el SGBD
+    url: jdbc:mariadb://localhost:3306/practica1db?useSSL=false
+    username: root
+    password:
+  jpa: #Configuración del ORM JPA (HIBERNATE)
+    show-sql: true
+    hibernate:
+      ddl-auto: create #validate #delete #delete-drop
+  thymeleaf: #Configuración del motor de plantillas
+    cache: false #En producción se pone a true
+    mode: HTML
+server:
+  port: 8080
+
