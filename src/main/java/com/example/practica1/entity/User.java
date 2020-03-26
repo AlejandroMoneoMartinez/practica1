@@ -51,13 +51,17 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<UserRole> userRoleList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Task> taskList = new ArrayList<>();
+
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String email, String phone, boolean enabled) {
+    public User(String firstName, String lastName, String email, String password, String phone, boolean enabled) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.password = password;
         this.email = email;
         this.phone = phone;
         this.enabled = enabled;
@@ -111,12 +115,28 @@ public class User {
         this.phone = phone;
     }
 
-    public boolean getEnabled() {
+    public boolean isEnabled() {
         return enabled;
     }
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public List<UserRole> getUserRoleList() {
+        return userRoleList;
+    }
+
+    public void setUserRoleList(List<UserRole> userRoleList) {
+        this.userRoleList = userRoleList;
+    }
+
+    public List<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(List<Task> taskList) {
+        this.taskList = taskList;
     }
 
     public void addUserRole(UserRole userRole) {
@@ -127,6 +147,16 @@ public class User {
     public void removeUserRole(UserRole userRole) {
         this.userRoleList.remove(userRole);
         userRole.setUser(null);
+    }
+
+    public void addTask(Task task) {
+        this.taskList.add(task);
+        task.setUser(this);
+    }
+
+    public void removeTask(Task task) {
+        this.taskList.remove(task);
+        task.setUser(null);
     }
 
     @Override

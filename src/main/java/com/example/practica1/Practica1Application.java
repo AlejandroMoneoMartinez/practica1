@@ -5,6 +5,7 @@ import com.example.practica1.entity.User;
 import com.example.practica1.entity.UserRole;
 import com.example.practica1.repository.RoleRepository;
 import com.example.practica1.repository.UserRepository;
+import com.example.practica1.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class Practica1Application {
     private UserRepository userRepository;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private RoleRepository roleRepository;
 
     @Bean
@@ -44,8 +48,8 @@ public class Practica1Application {
                 }
 
                 if (userRepository.findAll().isEmpty()) {
-                    User userAdmin = new User("Omar", "Ben", "omaxlive3@gmail.com", "64840828", true);
-                    userAdmin.setPassword("asedasd123123123");
+                    User userAdmin = new User("Omar", "Ben", "root@root", "root","64840828", true);
+                    userService.encodePassword(userAdmin);
                     userAdmin.addUserRole(new UserRole(roleRepository.findByName(Role.ROLE_ADMIN).orElseThrow(() -> new Exception("cannot find role " + Role.ROLE_ADMIN))));
                     userRepository.save(userAdmin);
                     log.info("Creado usuario admin");
