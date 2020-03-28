@@ -17,7 +17,8 @@ import org.springframework.context.annotation.Bean;
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootApplication
+@SpringBootApplication // Tells to the application to use SpringBoot it replaces the next three
+                       // annotations @Configuration @EnableAutoConfiguration @ComponentScan
 public class Practica1Application {
 
     private static Logger log = LoggerFactory.getLogger(Practica1Application.class);

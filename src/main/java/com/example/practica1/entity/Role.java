@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+// @ = annotation
 @Entity
 @Table(name = "roles")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

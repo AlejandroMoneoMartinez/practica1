@@ -1,3 +1,5 @@
+# YAML file docs https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config-yaml 
+# Common Application properties: https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#common-application-properties
 spring:
   application:
     name: practica1
