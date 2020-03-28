@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.Principal;
 
@@ -28,15 +29,23 @@ public class HomeController {
         return "index";
     }
 
-    @PostMapping
-    private String indexPost(@Valid Task task, Errors errors, Principal principal, Model model) {
+    @PostMapping("/ajax/submitTask")
+    private String submitTask(@Valid Task task, Errors errors, HttpServletResponse response, Principal principal, Model model) {
         User userLogged = userService.getUserByEmail(principal.getName());
         model.addAttribute("userLogged", userLogged);
-        if (errors.hasErrors())
-            return "index";
+        if (errors.hasErrors()) {
+            response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);
+            return "index :: taskForm";
+        }
         userLogged.addTask(task);
         userService.saveUser(userLogged);
         model.addAttribute("task", new Task());
-        return "index";
+        return "index :: taskForm";
+    }
+
+    @GetMapping("/ajax/getTaskList")
+    private String getTaskList(Principal principal, Model model) {
+        model.addAttribute("userLogged", userService.getUserByEmail(principal.getName()));
+        return "index :: taskList";
     }
 }

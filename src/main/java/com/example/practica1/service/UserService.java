@@ -31,6 +31,10 @@ public class UserService {
         user.setPassword(encryptedPassword);
     }
 
+    public User getUserById(long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
     public User createUser(User user) throws EmailAlreadyExistsException {
         if (userRepository.existsByEmailIgnoreCase(user.getEmail()))
             throw new EmailAlreadyExistsException(user.getEmail());

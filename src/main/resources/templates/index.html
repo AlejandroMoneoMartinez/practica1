@@ -10,34 +10,56 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
     <title>Hello, world!</title>
+
+    <script th:inline="javascript">
+        var task = [[${task}]];
+        console.log(task);
+
+        function submitForm(event, scope) {
+            event.preventDefault();
+            $("#my-form-container").load('/ajax/submitTask', $(scope).serializeArray(), function (response, status, xhr) {
+                if (xhr.status === 200)
+                    $("#my-list-container").load('/ajax/getTaskList');
+            });
+        }
+    </script>
 </head>
 <body>
 <div class="container mt-3">
     <h1 th:text="'Hello ' + ${userLogged.firstName}"></h1>
     <hr>
-    <form method="post" th:action="@{/index}" th:object="${task}">
-        <div class="form-group">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-fw fa-list-ul"></i></span>
+    <!--/*<form method="post" th:action="@{/index}" th:object="${task}">*/-->
+    <div id="my-form-container">
+        <form method="post" th:fragment="taskForm" th:object="${task}" onsubmit="submitForm(event, this)">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-fw fa-list-ul"></i></span>
+                    </div>
+                    <!--/*th:Field equivale a poner name e id, i el value de la variable*/-->
+                    <input th:field="*{name}" th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'" type="text" required>
                 </div>
-                <input th:field="*{name}" th:class="${#fields.hasErrors('name')} ? 'form-control is-invalid' : 'form-control'" type="text" required>
             </div>
-        </div>
-        <button type="submit" class="btn btn-primary"><i class="fas fa-fw fa-plus"></i> Create</button>
-    </form>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-fw fa-plus"></i> Create</button>
+        </form>
+    </div>
 
     <br>
     <h4>Task list</h4>
     <hr>
-    <ul class="list-group">
-        <li class="list-group-item d-flex justify-content-between" th:if="${#lists.isEmpty(userLogged.taskList)}" th:text="'Ninguna tarea creada'"></li>
-        <li class="list-group-item d-flex justify-content-between" th:each="task,stat : ${userLogged.taskList}" th:text="${task.name}"></li>
+    <ul class="list-group" id="my-list-container">
+        <th:block th:fragment="taskList">
+            <li class="list-group-item d-flex justify-content-between" th:if="${#lists.isEmpty(userLogged.taskList)}" th:text="'Ninguna tarea creada'"></li>
+            <li class="list-group-item d-flex justify-content-between" th:each="task,stat : ${userLogged.taskList}" th:text="${task.name}"></li>
+        </th:block>
     </ul>
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
