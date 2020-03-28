@@ -34,8 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     private static final String[] PUBLIC_MATCHERS = {
-            "/login",
-            "/logout"
+            "/h2-console/**"
     };
 
     @Override
@@ -67,7 +66,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 //.cors()
                 //.and()
-                .csrf();
+                .csrf().disable();
+        http.headers().frameOptions().disable();
         //.ignoringAntMatchers("/sourcelist/**") //deshabilitamos la proteccion csrf solo en la api source
         //.and().requiresChannel().anyRequest().requiresSecure();
     }
