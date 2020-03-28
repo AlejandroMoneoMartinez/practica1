@@ -1,19 +1,30 @@
 # YAML file docs https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config-yaml 
 # Common Application properties: https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#common-application-properties
+logging:
+  level:
+    org.springframework: DEBUG
 spring:
   application:
     name: practica1
-  datasource: #Configuracion de la conexión con el SGBD
-    url: jdbc:mariadb://localhost:3306/practica1db?useSSL=false
-    username: root
+  datasource:
+    url: jdbc:postgresql://localhost:5432/practica1db
+    username: postgres
     password:
   jpa: #Configuración del ORM JPA (HIBERNATE)
     show-sql: true
     hibernate:
       ddl-auto: create #validate #delete #delete-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: public
+        globally_quoted_identifiers: true
+        temp:
+          use_jdbc_metadata_defaults: false
   thymeleaf: #Configuración del motor de plantillas
     cache: false #En producción se pone a true
     mode: HTML
 server:
   port: 8080
+
 
