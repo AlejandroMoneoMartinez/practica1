@@ -1,0 +1,15 @@
+mutation createTask {
+  task: createTask(userId: 1, name: "dormir", done: true) { id }
+}
+
+query findAllTasksByUserId {
+  findAllTasksByUserId (userId: 1){ id, name }
+}
+
+mutation updateTask {
+  updateTask(task: { id: 1, user: {id: 1}, name: "comer", done: true }) { id, name }
+}
+
+mutation deleteTask {
+  deleteTask(id: 2)
+}

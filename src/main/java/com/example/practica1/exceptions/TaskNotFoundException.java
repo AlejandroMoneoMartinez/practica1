@@ -10,18 +10,14 @@ import graphql.language.SourceLocation;
 
 public class TaskNotFoundException extends RuntimeException implements GraphQLError {
 
-    /**
-    *
-    */
-
     private Map<String, Object> extensions = new HashMap<>();
 
     // public TaskNotFoundException(String exception) {
     // super(exception);
     // }
-    public TaskNotFoundException(String exception, Long invalidTaskid) {
-        super(exception);
-        extensions.put("invalidTasknId", invalidTaskid);
+    public TaskNotFoundException(Long invalidTaskid) {
+        super();
+        extensions.put("invalidTaskId", invalidTaskid);
     }
 
     @Override

@@ -5,7 +5,6 @@ import java.util.List;
 import com.example.practica1.entity.Task;
 import com.example.practica1.entity.User;
 import com.example.practica1.exceptions.TaskNotFoundException;
-import com.example.practica1.repository.TaskRepository;
 import com.example.practica1.service.TaskService;
 import com.example.practica1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +54,8 @@ public class TaskRestController {
 
     @GetMapping("/tasks")
     public ResponseEntity<List<Task>> getAllApplications() {
-        List<Task> list = taskService.listTasks();
-        return new ResponseEntity<List<Task>>(list, HttpStatus.OK);
+        List<Task> list = taskService.getAllTasks();
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping("tasks/{id}")

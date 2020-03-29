@@ -1,16 +1,37 @@
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  email: String!
+  phone: String!
+  enabled: Boolean!
+}
+
 type Task {
   id: ID!
+  user: User!
   name: String!
   done: Boolean!
 }
 
+input TaskInput {
+  id: ID!
+  user: UserInput!
+  name: String!
+  done: Boolean!
+}
+
+input UserInput {
+  id: ID!
+}
+
 type Query {
-  findAllTasks: [Task]!
-  countTasks: Long!
+  findAllTasksByUserId(userId: ID!): [Task]!
 }
 
 type Mutation {
-  newTask(name: String!, done: Boolean!): Task!
+  createTask(userId: ID!, name: String!, done: Boolean!): Task!
+  updateTask(task:TaskInput!): Task!
   deleteTask(id:ID!): Boolean
   # updateTaskName(newName: String!, id: ID!): Task!
 }

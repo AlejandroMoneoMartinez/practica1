@@ -11,5 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface TaskRepository extends CrudRepository<Task, Long> {
     @Override
     List<Task> findAll();
+    List<Task> findAllByUserId(long userId);
     Optional<Task> findById(String name);
 }
