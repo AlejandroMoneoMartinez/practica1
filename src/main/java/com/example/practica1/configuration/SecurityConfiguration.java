@@ -38,14 +38,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/rest/**",
             "/graphql",
             "/graphiql",
-            "/graphiql/**"
+            "/subscriptions",
+            "/vendor/**"
     };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests() //NOTE: More to less restrictive
                 .antMatchers(PUBLIC_MATCHERS).permitAll()
-                //.mvcMatchers("/users/**").hasAuthority(Role.ROLE_ADMIN)
+                //.mvcMatchers("/", "/index").hasAuthority(Role.ROLE_USER)
                 .anyRequest().authenticated()
                 .and()
                 .formLogin() // NOTE: a login form is showed when no authenticated request
