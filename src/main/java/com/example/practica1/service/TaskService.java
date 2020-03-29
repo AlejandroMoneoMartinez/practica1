@@ -24,13 +24,12 @@ public class TaskService {
     }
     
     public Task getTaskById(long id) {
-
-        Optional<Task> optionalTask = taskRepository.findById(id);
-
-        if(optionalTask.isPresent())
-          return optionalTask.get();
-        else
-          throw new TaskNotFoundException("Task Not Found");
+        return taskRepository.findById(id).orElse(null);
+        // Optional<Task> optionalTask = taskRepository.findById(id);
+        // if(optionalTask.isPresent())
+        //   return optionalTask.get();
+        // else
+        //   throw new TaskNotFoundException("Task Not Found");
 
     }
 
