@@ -40,12 +40,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests() //De menos a mas restrictivo
+        http.authorizeRequests() //NOTE: More to less restrictive
                 .antMatchers(PUBLIC_MATCHERS).permitAll()
                 //.mvcMatchers("/users/**").hasAuthority(Role.ROLE_ADMIN)
                 .anyRequest().authenticated()
                 .and()
-                .formLogin() //a login form is showed when no authenticated request
+                .formLogin() // NOTE: a login form is showed when no authenticated request
                 //.loginPage("/login")
                 .failureUrl("/login?error")
                 .defaultSuccessUrl("/index")
@@ -56,11 +56,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //.httpBasic()
                 .and()
                 .rememberMe()
-                .rememberMeParameter("remember-me") //atención sin el rememberMeParameter no funciona!!!
+                .rememberMeParameter("remember-me") // NOTE: without rememberMeParameter it doesn't work!!!
                 .tokenValiditySeconds(2419200) //28 days
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //necesario ponerlo así en vez de .logoutUrl("/logout") cuando .csrf() esta habilitado, ya que tendriamos que hacer un post en ese caso
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // NOTE: must be like this instead of .logoutUrl("/logout") when .csrf() is enabled, ya que tendriamos que hacer un post en ese caso
                 .logoutSuccessUrl("/logout")
                 .deleteCookies("remember-me")
                 .permitAll()

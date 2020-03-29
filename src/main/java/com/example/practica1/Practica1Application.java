@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Bean;
 import java.util.ArrayList;
 import java.util.List;
 
-@SpringBootApplication // Tells to the application to use SpringBoot it replaces the next three
+@SpringBootApplication // NOTE: Tells to the application to use SpringBoot it replaces the next three
                        // annotations @Configuration @EnableAutoConfiguration @ComponentScan
 public class Practica1Application {
 
@@ -39,7 +39,7 @@ public class Practica1Application {
     @Bean
     CommandLineRunner runner() {
         return new CommandLineRunner() {
-            @Override //SPRING BOOT MAIN
+            @Override // NOTE: SPRING BOOT MAIN
             public void run(String... args) throws Exception {
                 if (roleRepository.findAll().isEmpty()) {
                     List<Role> roleList = new ArrayList<>();

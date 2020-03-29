@@ -12,6 +12,15 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/rest/tasks")
+// -------------------------------------------------------------------------------------------
+// NOTE ---------------------Spring MVC annotations, not specific to spring boot--------------
+// -------------------------------------------------------------------------------------------
+@RestController // NOTE: Simplifies creating RESTful web services, 
+                // the controller now simply returns object data that is written directly to the HTTP response as JSON.
+@RequestMapping("/rest") // NOTE: It maps the HTTP requests to the correct handler methods in the controller
+// -------------------------------------------------------------------------------------------
+// NOTE ---------------------Spring MVC annotations, not specific to spring boot--------------
+// -------------------------------------------------------------------------------------------
 public class TaskRestController {
 
     @Autowired
