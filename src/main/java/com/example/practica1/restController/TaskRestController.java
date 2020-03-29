@@ -1,17 +1,20 @@
 package com.example.practica1.restController;
 
+import java.util.List;
+
 import com.example.practica1.entity.Task;
 import com.example.practica1.entity.User;
+import com.example.practica1.exceptions.TaskNotFoundException;
 import com.example.practica1.repository.TaskRepository;
+import com.example.practica1.service.TaskService;
 import com.example.practica1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
-@RestController
-@RequestMapping("/rest/tasks")
 // -------------------------------------------------------------------------------------------
 // NOTE ---------------------Spring MVC annotations, not specific to spring boot--------------
 // -------------------------------------------------------------------------------------------
@@ -27,7 +30,7 @@ public class TaskRestController {
     private UserService userService;
 
     @Autowired
-    private TaskRepository taskRepository;
+    private TaskService taskService;
 
     @PostMapping
     public HttpEntity<?> add(@RequestBody Task task) {
@@ -50,12 +53,18 @@ public class TaskRestController {
         }
     }
 
-    @GetMapping("/{id}")
-    public HttpEntity<?> getTask(@PathVariable Long id) {
+    @GetMapping("/tasks")
+    public ResponseEntity<List<Task>> getAllApplications() {
+        List<Task> list = taskService.listTasks();
+        return new ResponseEntity<List<Task>>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("tasks/{id}")
+    public ResponseEntity<Task> getTask(@PathVariable("id") Long id) {
         try {
-            return new ResponseEntity<>(taskRepository.findById(id), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<Task>(taskService.getTaskById(id), HttpStatus.OK);
+        } catch (TaskNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found");
         }
     }
 }
