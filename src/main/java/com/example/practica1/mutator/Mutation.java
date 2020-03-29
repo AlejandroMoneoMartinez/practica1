@@ -1,10 +1,12 @@
 package com.example.practica1.mutator;
 
-import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+// import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.example.practica1.entity.Task;
 import com.example.practica1.repository.TaskRepository;
 
 import org.springframework.stereotype.Component;
+
+import graphql.kickstart.tools.GraphQLMutationResolver;
 
 @Component
 class Mutation implements GraphQLMutationResolver {

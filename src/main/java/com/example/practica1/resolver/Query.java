@@ -1,11 +1,13 @@
 
 package com.example.practica1.resolver;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+// import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.example.practica1.entity.Task;
 import com.example.practica1.repository.TaskRepository;
 
 import org.springframework.stereotype.Component;
+
+import graphql.kickstart.tools.GraphQLQueryResolver;
 
 @Component
 class Query implements GraphQLQueryResolver {

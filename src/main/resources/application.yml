@@ -23,3 +23,26 @@ spring:
 server:
   port: 8080
 
+# graphiql:
+#   mapping: /graphql
+#   enabled: true
+#   endpoint: /graphql
+
+
+# graphql:
+#   servlet:
+#     mapping: /graphql
+#     enabled: true
+#     corsEnabled: true
+
+# graphql:
+#   tools:
+#     schema-location-pattern: "**/*.graphqls"
+#     use-default-objectmapper: true
+#   servlet:
+#     mapping: /graphql
+#     enabled: true
+#     corsEnabled: true
+#     # if you want to @ExceptionHandler annotation for custom GraphQLErrors
+#     exception-handlers-enabled: true
+#     contextSetting: PER_REQUEST_WITH_INSTRUMENTATION

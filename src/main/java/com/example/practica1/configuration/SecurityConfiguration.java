@@ -36,7 +36,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String[] PUBLIC_MATCHERS = {
             "/h2-console/**",
             "/rest/**",
-            "/graphiql"
+            "/graphql",
+            "/graphiql",
+            "/graphiql/**"
     };
 
     @Override
