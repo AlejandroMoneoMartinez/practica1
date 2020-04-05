@@ -22,7 +22,8 @@ spring:
     url: jdbc:h2:mem:testdb
 server:
   port: 8080
-
+jwt:
+  secret: salt
 # graphiql:
 #   mapping: /graphql
 #   enabled: true

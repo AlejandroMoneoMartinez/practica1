@@ -24,14 +24,17 @@ public class HomeController {
 
     @GetMapping
     private String index(Principal principal, Model model) {
-        model.addAttribute("userLogged", userService.getUserByEmail(principal.getName()));
+        //model.addAttribute("userLogged", userService.getUserByEmail(principal.getName()));
+        User userLogged = userService.getUserByEmail("root@root");
+        model.addAttribute("userLogged", userLogged);
         model.addAttribute("task", new Task());
         return "index";
     }
 
     @PostMapping("/ajax/submitTask")
     private String submitTask(@Valid Task task, Errors errors, HttpServletResponse response, Principal principal, Model model) {
-        User userLogged = userService.getUserByEmail(principal.getName());
+        //User userLogged = userService.getUserByEmail(principal.getName());
+        User userLogged = userService.getUserByEmail("root@root");
         model.addAttribute("userLogged", userLogged);
         if (errors.hasErrors()) {
             response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);
@@ -45,7 +48,9 @@ public class HomeController {
 
     @GetMapping("/ajax/getTaskList")
     private String getTaskList(Principal principal, Model model) {
-        model.addAttribute("userLogged", userService.getUserByEmail(principal.getName()));
+        //User userLogged = userService.getUserByEmail(principal.getName());
+        User userLogged = userService.getUserByEmail("root@root");
+        model.addAttribute("userLogged", userLogged);
         return "index :: taskList";
     }
 }

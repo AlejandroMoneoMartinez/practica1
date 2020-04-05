@@ -13,12 +13,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication // NOTE: Tells to the application to use SpringBoot it replaces the next three
                        // annotations @Configuration @EnableAutoConfiguration @ComponentScan
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class Practica1Application {
 
     private static Logger log = LoggerFactory.getLogger(Practica1Application.class);

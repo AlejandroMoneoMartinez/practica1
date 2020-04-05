@@ -1,7 +1,5 @@
 package com.example.practica1.restController;
 
-import java.util.List;
-
 import com.example.practica1.entity.Task;
 import com.example.practica1.entity.User;
 import com.example.practica1.exceptions.TaskNotFoundException;
@@ -11,8 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 // -------------------------------------------------------------------------------------------
 // NOTE ---------------------Spring MVC annotations, not specific to spring boot--------------
@@ -52,6 +53,7 @@ public class TaskRestController {
         }
     }
 
+    @PreAuthorize("hasAuthority('task')")
     @GetMapping("/tasks")
     public ResponseEntity<List<Task>> getAllApplications() {
         List<Task> list = taskService.getAllTasks();
