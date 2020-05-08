@@ -92,8 +92,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 //.deleteCookies("remember-me")
                 //.permitAll()
                 //.and()
-                //.cors()
-                //.and()
+                .cors()
+                .and()
                 .csrf().disable();
         http.headers().frameOptions().disable();
 

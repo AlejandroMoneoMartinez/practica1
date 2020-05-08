@@ -24,6 +24,9 @@ server:
   port: 8080
 jwt:
   secret: salt
+cors:
+  allowedOrigins: '*'
+  allowedMethods: GET, POST, PUT, DELETE, HEAD
 # graphiql:
 #   mapping: /graphql
 #   enabled: true

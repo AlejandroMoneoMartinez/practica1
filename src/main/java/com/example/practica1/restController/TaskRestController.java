@@ -53,7 +53,7 @@ public class TaskRestController {
         }
     }
 
-    @PreAuthorize("hasAuthority('task')")
+    //@PreAuthorize("hasAuthority('task')")
     @GetMapping("/tasks")
     public ResponseEntity<List<Task>> getAllApplications() {
         List<Task> list = taskService.getAllTasks();
