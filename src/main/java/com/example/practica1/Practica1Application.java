@@ -1,11 +1,14 @@
 package com.example.practica1;
 
+import com.example.practica1.entity.Film;
 import com.example.practica1.entity.Role;
 import com.example.practica1.entity.User;
 import com.example.practica1.entity.UserRole;
+import com.example.practica1.repository.FilmRepository;
 import com.example.practica1.repository.RoleRepository;
 import com.example.practica1.repository.UserRepository;
 import com.example.practica1.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +16,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication // NOTE: Tells to the application to use SpringBoot it replaces the next three
@@ -38,11 +44,21 @@ public class Practica1Application {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private FilmRepository filmRepository;
+
     @Bean
     CommandLineRunner runner() {
         return new CommandLineRunner() {
             @Override // NOTE: SPRING BOOT MAIN
             public void run(String... args) throws Exception {
+
+                List<Film> filmList = Arrays.asList(new ObjectMapper().readValue(new File(new ClassPathResource("/films.json").getURI()), Film[].class));
+                filmList.forEach(film -> {
+                    if (!filmRepository.existsById(film.getId()))
+                        filmRepository.save(film);
+                });
+
                 if (roleRepository.findAll().isEmpty()) {
                     List<Role> roleList = new ArrayList<>();
                     roleList.add(new Role(Role.ROLE_ADMIN));

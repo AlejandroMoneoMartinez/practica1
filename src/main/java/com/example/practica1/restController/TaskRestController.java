@@ -20,7 +20,7 @@ import java.util.List;
 // -------------------------------------------------------------------------------------------
 @RestController // NOTE: Simplifies creating RESTful web services, 
                 // the controller now simply returns object data that is written directly to the HTTP response as JSON.
-@RequestMapping("/rest") // NOTE: It maps the HTTP requests to the correct handler methods in the controller
+@RequestMapping("/rest/tasks") // NOTE: It maps the HTTP requests to the correct handler methods in the controller
 // -------------------------------------------------------------------------------------------
 // NOTE ---------------------Spring MVC annotations, not specific to spring boot--------------
 // -------------------------------------------------------------------------------------------
@@ -43,6 +43,15 @@ public class TaskRestController {
             return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
         }
     }
+
+    /*@GetMapping("/getValue/{key}")
+    public HttpEntity<?> getUserTasks(@PathVariable String key) {
+        try {
+            return new ResponseEntity<>(userService.getUserById(id).getTaskList(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+        }
+    }*/
 
     @GetMapping("/user/{id}")
     public HttpEntity<?> getUserTasks(@PathVariable Long id) {
