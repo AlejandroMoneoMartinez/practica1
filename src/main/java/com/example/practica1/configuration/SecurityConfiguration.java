@@ -46,24 +46,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
     }
 
-    private static final String[] PUBLIC_MATCHERS = {
-            "/h2-console/**",
-            /*"/rest/**",*/
-            "/graphql",
-            "/graphiql",
-            "/subscriptions",
-            "/vendor/**",
-            "/authenticate",
-            "/",
-            "/index",
-            "/ajax/**"
-    };
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests() //NOTE: More to less restrictive
-                .antMatchers(PUBLIC_MATCHERS).permitAll()
-                //.mvcMatchers("/", "/index").hasAuthority(Role.ROLE_USER)
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
@@ -72,26 +57,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                //.formLogin() // NOTE: a login form is showed when no authenticated request
-                //.loginPage("/login")
-                //.failureUrl("/login?error")
-                //.defaultSuccessUrl("/index")
-                //.usernameParameter("email")
-                //.passwordParameter("password")
-                //.permitAll()
-                //.and()
-                //.httpBasic()
-                //.and()
-                //.rememberMe()
-                //.rememberMeParameter("remember-me") // NOTE: without rememberMeParameter it doesn't work!!!
-                //.tokenValiditySeconds(2419200) //28 days
-                //.and()
-                //.logout()
-                //.logoutRequestMatcher(new AntPathRequestMatcher("/logout")) // NOTE: must be like this instead of .logoutUrl("/logout") when .csrf() is enabled, ya que tendriamos que hacer un post en ese caso
-                //.logoutSuccessUrl("/logout")
-                //.deleteCookies("remember-me")
-                //.permitAll()
-                //.and()
                 .cors()
                 .and()
                 .csrf().disable();
@@ -99,8 +64,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         // Add a filter to validate the tokens with every request
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
-        //.ignoringAntMatchers("/sourcelist/**") //deshabilitamos la proteccion csrf solo en la api source
-        //.and().requiresChannel().anyRequest().requiresSecure();
     }
 }

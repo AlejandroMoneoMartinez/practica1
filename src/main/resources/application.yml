@@ -11,9 +11,6 @@ spring:
   #  show-sql: true
   #  hibernate:
   #    ddl-auto: create #validate #delete #delete-drop
-  thymeleaf: #Configuración del motor de plantillas
-    cache: false #En producción se pone a true
-    mode: HTML
   datasource: #Configuración de la conexión con el SGBD Postgres
     url: ${JDBC_DATABASE_URL}
     username: ${JDBC_DATABASE_USERNAME}
@@ -38,26 +35,3 @@ jwt:
 cors:
   allowedOrigins: '*'
   allowedMethods: GET, POST, PUT, DELETE, HEAD
-# graphiql:
-#   mapping: /graphql
-#   enabled: true
-#   endpoint: /graphql
-
-
-# graphql:
-#   servlet:
-#     mapping: /graphql
-#     enabled: true
-#     corsEnabled: true
-
-# graphql:
-#   tools:
-#     schema-location-pattern: "**/*.graphqls"
-#     use-default-objectmapper: true
-#   servlet:
-#     mapping: /graphql
-#     enabled: true
-#     corsEnabled: true
-#     # if you want to @ExceptionHandler annotation for custom GraphQLErrors
-#     exception-handlers-enabled: true
-#     contextSetting: PER_REQUEST_WITH_INSTRUMENTATION
