@@ -8,11 +8,11 @@
         <version>2.2.5.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>practica1</artifactId>
+    <groupId>com.omaxlive.shoof</groupId>
+    <artifactId>shoof</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>practica1</name>
-    <description>Demo project for Spring Boot</description>
+    <name>shoof</name>
+    <description>shoof project in Spring Boot</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -53,10 +53,10 @@
             <artifactId>mariadb-java-client</artifactId>
         </dependency>*/-->
 
-        <dependency>
+        <!-- <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-        </dependency>
+        </dependency> -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -118,6 +118,10 @@
         </dependency>
         <!-- END JWT -->
 
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
 
     </dependencies>
 

@@ -26,7 +26,7 @@ import java.util.List;
 
 @SpringBootApplication // NOTE: Tells to the application to use SpringBoot it replaces the next three
                        // annotations @Configuration @EnableAutoConfiguration @ComponentScan
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true) //Sino no funcionan los @PreAuthorize
 public class Practica1Application {
 
     private static Logger log = LoggerFactory.getLogger(Practica1Application.class);
@@ -72,6 +72,12 @@ public class Practica1Application {
                     userAdmin.addUserRole(new UserRole(roleRepository.findByName(Role.ROLE_ADMIN).orElseThrow(() -> new Exception("cannot find role " + Role.ROLE_ADMIN))));
                     userRepository.save(userAdmin);
                     log.info("Creado usuario admin");
+
+                    User userRead = new User("client", "client", "read@read.com", "09jsnBHJSBD)==233","654654654", true);
+                    userService.encodePassword(userRead);
+                    userRead.addUserRole(new UserRole(roleRepository.findByName(Role.ROLE_USER).orElseThrow(() -> new Exception("cannot find role " + Role.ROLE_USER))));
+                    userRepository.save(userRead);
+                    log.info("Creado usuario client");
                 }
             }
         };

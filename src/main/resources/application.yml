@@ -14,12 +14,23 @@ spring:
   thymeleaf: #Configuración del motor de plantillas
     cache: false #En producción se pone a true
     mode: HTML
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-  datasource:
-    url: jdbc:h2:mem:testdb
+  datasource: #Configuración de la conexión con el SGBD Postgres
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+  jpa: #Configuración del ORM JPA
+    show-sql: false #Mostrar por consola las consultas SQL
+    hibernate:
+      ddl-auto: update #Modificar el SCHEMA de la base de datos automáticamente
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  # h2:
+  #   console:
+  #     enabled: true
+  #     path: /h2-console
+  # datasource:
+  #   url: jdbc:h2:mem:testdb
 server:
   port: 8080
 jwt:

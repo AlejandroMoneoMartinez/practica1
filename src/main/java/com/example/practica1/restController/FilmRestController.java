@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +20,7 @@ public class FilmRestController {
     @Autowired
     private FilmRepository filmRepository;
 
+    @PreAuthorize("hasAuthority('admin')")
     @GetMapping
     public ResponseEntity<List<Film>> getAll() {
         return new ResponseEntity<>(filmRepository.findAll(), HttpStatus.OK);
@@ -30,6 +32,7 @@ public class FilmRestController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<?> save(@RequestBody String data) throws JsonProcessingException {
         List<Film> filmList = Arrays.asList(new ObjectMapper().readValue(data, Film[].class));
         filmList.forEach(film -> {
@@ -39,12 +42,14 @@ public class FilmRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('admin')")
     @DeleteMapping
     public ResponseEntity<?> deleteAll() {
         filmRepository.deleteAll();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAuthority('admin')")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteById(@PathVariable("id") String id) {
         if (filmRepository.existsById(id)) {
